@@ -4,10 +4,6 @@
 
 - [x] 完善项目构建功能
 
-**直接启动**
-```bash
-npm start
-```
 **打包构建**
 ```bash
 npm run release
