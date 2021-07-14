@@ -4,15 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "electron bin"
+    "start": "electron bin",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build:electron": "electron-packager ./bin limitPNG --out ./release",
+    "build": "npm run build:webpack && npm run build:electron",
+    "clean": "rimraf ./release",
+    "copy:assets": "node ./copy-assets.js",
+    "release": "npm run clean && npm run build && npm run copy:assets"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^6.4.1",
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-3": "^6.5.0",
+    "css-loader": "^1.0.1",
     "file-loader": "^0.8.5",
+    "style-loader": "^1.3.0",
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^1.3.2",
     "vue-html-loader": "^1.2.2",
@@ -21,10 +31,16 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+    "copy": "^0.3.2",
     "dragula": "^3.7.1",
+    "electron": "^1.8.8",
+    "electron-packager": "^3.4.0",
+    "electron-prebuilt": "^1.4.13",
     "fs-extra": "^0.30.0",
+    "rimraf": "^3.0.2",
     "vue": "^1.0.24",
     "vue-animated-list": "^1.0.2",
+    "vue-dragula": "^1.3.1",
     "vuex": "^0.6.3"
   }
 }
