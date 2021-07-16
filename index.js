@@ -9,6 +9,7 @@ Vue.use(VueDragula);
 import "vue-dragula/styles/dragula.min.css"
 import path  from "path"
 import fs  from "fs"
+import os  from "os"
 import fsex  from "fs-extra";
 import "./limitPNG.js"
 import "./report"
@@ -107,7 +108,7 @@ var file_data = [];
 //         error: true
 //     }
 // ]
-
+var maxThread = os.cpus().length - 1
 
 var main_list = new Vue(
     {
@@ -123,8 +124,8 @@ var main_list = new Vue(
             //----
             mode: "limit",
             out: "-suffix",
-            thread: 2,
-
+            thread: Math.min(2, maxThread),
+            maxThread: maxThread,
         },
         methods: {
 
@@ -464,7 +465,7 @@ window.doLimiteByfile_data = function ()
 
 
     var stack = 2;
-    if (v.thread != undefined && v.thread > 0 && v.thread < 16)
+    if (v.thread != undefined && v.thread > 0)
     {
         stack = v.thread;
     }

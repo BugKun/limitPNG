@@ -24,8 +24,10 @@ function createWindow() {
         minWidth:420,
         minHeight :250,
         title:"limitPNG",
-        icon: path.join(__dirname,'/img/ICON.ico')
-
+        icon: path.join(__dirname,'/img/ICON.ico'),
+        // webPreferences: {
+        //     nodeIntegration: true,//添加这个即可
+        // },
     });
 
     // win.webContents.openDevTools();

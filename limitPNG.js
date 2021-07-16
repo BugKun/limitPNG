@@ -139,7 +139,8 @@ LimitPNG.prototype.do = function (in_processors, outOption, callBack)
             log(_i + " ===================================")
             let do_cmd = '"' + path.resolve(".\\resources\\tools\\" + _proce.exeName) + '" ' + _proce.cmd(_tempFile);
             log("do_cmd " + _i + " : " + do_cmd);
-            let child = child_process.exec(do_cmd, {timeout: 3654321}, function (error, stdout, stderr)
+            console.log("do_cmd " + _i + " : " + do_cmd)
+            let child = child_process.exec(do_cmd, {timeout: 0}, function (error, stdout, stderr)
             {
                 log.test("sout:" + _i + "\n" + stdout);
                 if (error != undefined)
@@ -282,9 +283,7 @@ LimitPNG.prototype.do = function (in_processors, outOption, callBack)
 
 LimitPNG.prototype.allocTemp = function ()
 {
-    let temp = os.tmpdir(); //"C:\Users\nullice\AppData\Local\Temp"
-    temp = path.join(temp, "limitPNG_temp");
-
+    let temp = path.resolve(process.cwd(), "limitPNG_temp");//os.tmpdir(); //"C:\Users\nullice\AppData\Local\Temp"
 
     if (fileExists(temp) == false)
     {
@@ -359,7 +358,7 @@ PROCE.truePNG = function (opIndex, isLossy)
     re.cmd = function (in_path)
     {
         // console.log(this)
-        return ' "' + in_path + '" ' + re.op;
+        return ' "' + in_path + '" ' + re.op + ' -md keep color';
     };
 
     re.exeName = "TruePNG.exe";
@@ -393,7 +392,7 @@ PROCE.pngout = function (opIndex, isLossy)
     re.cmd = function (in_path)
     {
         // console.log(this)
-        return ' "' + in_path + '" ' + re.op;
+        return ' "' + in_path + '" ' + re.op + ' -kCHUNK /gAMA,cHRM,sRGB,iCCP';
     };
 
     re.exeName = "pngout.exe";
@@ -456,7 +455,7 @@ PROCE.pngwolf = function (opIndex, isLossy)
     re.cmd = function (in_path)
     {
         // console.log(this)
-        return '--in="' + in_path + '" ' + '--out="' + in_path + '" ' + re.op;
+        return '--in="' + in_path + '" ' + '--out="' + in_path + '" ' + re.op + ' --keep-chunk=gAMA --keep-chunk=cHRM --keep-chunk=sRGB --keep-chunk=iCCP';
 
 
     };
@@ -491,7 +490,7 @@ PROCE.zopflipng = function (opIndex, isLossy)
     re.cmd = function (in_path)
     {
         // console.log(this)
-        return re.op + ' "' + in_path + '" ' + ' "' + in_path + '" ';
+        return re.op + ' --keepchunks=gAMA,cHRM,sRGB,iCCP' +' "' + in_path + '" ' + ' "' + in_path + '" ';
     };
 
     re.exeName = "zopflipng.exe";

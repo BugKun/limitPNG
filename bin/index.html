@@ -35,15 +35,8 @@
         <button title="清空列表" id="remove_all" v-on:click="remove_all"><img src="./img/remove.svg" alt=""></button>
         <button title="同时处理文件数：{{thread}}" id="thread_number"><img src="./img/cpu.svg" alt="">
             <select name="" id="select_thread" v-model="thread">
-                <option value="1">{{thread-1?'1':'1<'}}</option>
-                <option value="2">{{thread-2?'2':'2<'}}</option>
-                <option value="3">{{thread-3?'3':'3<'}}</option>
-                <option value="4">{{thread-4?'4':'4<'}}</option>
-                <option value="5">{{thread-5?'5':'5<'}}</option>
-                <option value="6">{{thread-6?'6':'6<'}}</option>
-                <!--<option value="7">{{thread-7?'7':'7<'}}</option>-->
-                <!--<option value="8">{{thread-8?'8':'8<'}}</option>-->
-             </select>
+                <option v-for="li in maxThread" :value="li + 1">{{li + 1}}{{(thread - 1 == li)? '<' : ''}}</option>
+            </select>
         </button>
 
         <div ondblclick="out_log_try()" class="list_info"> 共 {{list.length}} 个文件，总大小：{{list_size_old|filter_file_size}} <span v-if="list_size_new">，新总大小：{{list_size_new|filter_file_size}}</span></div>
